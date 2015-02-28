@@ -33,6 +33,6 @@ def home():
 	GET  /home
 	Carrega a página inicial
 	'''
-	api = facebook.GraphAPI(Utils.token["access_token"], version="2.0")
-	print api.get_version()
+	api = facebook.GraphAPI(Utils.token["access_token"])
+	print api.get_object("me")
 	return render_template("login.html")

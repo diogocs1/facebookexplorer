@@ -1,0 +1,14 @@
+Obejto "me" do Grafo
+
+{
+u'first_name': u'Diogo', 
+u'last_name': u'Cabral', 
+u'verified': True, 
+u'name': u'Diogo Cabral', 
+'locale': u'pt_BR', 
+u'gender': u'male', 
+u'email': u'diogo.silva@arapiraca.ufal.br', 
+u'link': u'https://www.facebook.com/app_scoped_user_id/1552349518374444/', 
+u'timezone': -3, 
+u'updated_time': u'2015-02-24T23:48:21+0000', 
+u'id': u'1552349518374444'}
