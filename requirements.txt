@@ -1,0 +1,4 @@
+git+https://github.com/pythonforfacebook/facebook-sdk.git
+pywebview
+itsdangerous
+flask
