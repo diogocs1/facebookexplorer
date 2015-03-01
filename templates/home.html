@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+
+<img class="navbar-right img-perfil" src="{{perfil_publico['picture']}}" />
+
+<a class="btn btn-default navbar-right bt-sair" href="{{logout}}">   Sair</a>
+
+<p class="navbar-text navbar-right">
+	<small>Usuário:  </small>{{perfil_publico["first_name"]}}
+</p>
+
+<ul class="nav navbar-nav">
+	<li class="active"><a href="#">Início</a></li>
+	<li class=""><a href="{{url_for('feed')}}">Atividade recente</a></li>
+</ul>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="page-header">
+		<h1>Início  <small>Suas conexões </small></h1>
+		<p>Use o mouse para interagir com o grafo</p>
+	</div>
+	<div id="grafo">
+		<script>
+			var grafo;
+			$.get("http://localhost:5000/grafo.json", function(data){
+				grafo = data;
+				sig = new sigma({
+					graph : grafo,
+					container : "grafo"
+				});
+				sig.refresh();
+			});
+		</script>
+	</div>
+</div>
+
+{% endblock %}

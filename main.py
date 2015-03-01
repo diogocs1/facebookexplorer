@@ -1,9 +1,11 @@
 # encoding: UTF-8
 # Meus arquivos
 from flaskapp import app
+from utils import Utils
 # Frameworks
 import webview
 import facebook
+import pony.orm as orm
 # Bibliotecas padrão
 import thread
 import time
@@ -18,10 +20,11 @@ def startApp():
 
 def startServer():
 	'''
-	Inicia o servidor web
+	Inicia o servidor web e chama createdb() para criar o banco de dados
 	'''
 	# remover debug em versão final
 	app.run(debug=True)
+
 
 if __name__ == "__main__":
 	thread.start_new_thread(startApp, ())

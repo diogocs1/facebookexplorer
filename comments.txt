@@ -11,4 +11,13 @@ u'email': u'diogo.silva@arapiraca.ufal.br',
 u'link': u'https://www.facebook.com/app_scoped_user_id/1552349518374444/', 
 u'timezone': -3, 
 u'updated_time': u'2015-02-24T23:48:21+0000', 
-u'id': u'1552349518374444'}
+u'id': u'1552349518374444'
+}
+
+Não é possível obter a lista de amigos, segundo a documentação
+
+https://developers.facebook.com/docs/graph-api/reference/v2.2/user/friends
+
+Uma solução, pegar os amigos "marcáveis":
+
+https://developers.facebook.com/docs/graph-api/reference/v2.2/user/taggable_friends

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block navbar %}
+
+<img class="navbar-right img-perfil" src="{{perfil_publico['picture']}}" />
+
+<a class="btn btn-default navbar-right bt-sair" href="{{logout}}">   Sair</a>
+
+<p class="navbar-text navbar-right">
+	<small>Usuário:  </small>{{perfil_publico["first_name"]}}
+</p>
+
+<ul class="nav navbar-nav">
+	<li class=""><a href="{{url_for('home')}}">Início</a></li>
+	<li class="active"><a href="#">Atividade recente</a></li>
+</ul>
+
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<h1>Seu Feed aparecerá aqui</h1>
+</div>
+
+{% endblock %}

@@ -11,7 +11,8 @@
 		<script type="text/javascript" src="{{url_for('static', filename='js/jquery-2.1.3.min.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/facebook.js')}}"></script>
-
+		<script type="text/javascript" src="{{url_for('static', filename='js/sigma.min.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/plugins/sigma.parsers.json.min.js')}}"></script>
 	</head>
 	<body>
 
@@ -21,6 +22,7 @@
 					<div class="navbar-header">
 						<a class="navbar-brand titulo">Facebook Explorer</a>
 					</div>
+					{% block navbar %}{% endblock %}
 				</div>
 			</nav>
 		</header>
