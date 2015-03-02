@@ -24,7 +24,7 @@ def index():
 @app.route("/token")
 def token():
 	'''
-	Usado para converter o 'code' retornado em 'access_token'
+	Usado para converter o 'code' retornado pela "auth_url" em 'access_token'
 	'''
 	code = request.args.get("code", '')
 	if not Utils.token:
@@ -60,20 +60,40 @@ def home():
 
 @app.route("/feed")
 def feed():
+	'''
+	GET  /feed
+	Armazena e retorna suas atualizações recentes
+	'''
 	feed = Utils.api.get_object("me/feed")
+
+	Utils.post_cursor = feed["paging"]
+	posts = feed["data"]
+	
+	feedController.salvaPosts(posts)
+
 	usuario = feedController.obtemPerfilUsuario()
-	print feed["data"][0]
 	return render_template("feed.html", perfil_publico=usuario)
 
 
 @app.route("/home/load")
 def homeLoad():
+	'''
+	GET  /home/load
+	Mostra tela de carregando antes de iniciar o sistema
+	'''
 	return render_template("carregando.html")
 
 # retorna as fotos salvas no banco
 @app.route("/picture/<pid>.jpg")
 def getImage(pid):
+	'''
+	GET  /picture/*.jpg
+	Mapeia imagens do banco como links
+	'''
 	image = imgController.getImg(pid)
+	print 
+	print pid
+	print
 	response = make_response(image)
 	response.headers['Content-Type'] = 'image/jpeg'
 	response.headers['Content-Disposition'] = 'attachment; filename=img.jpg'
@@ -81,5 +101,9 @@ def getImage(pid):
 
 @app.route("/grafo.json")
 def grafoJson():
+	'''
+	GET  /grafo.json
+	Retorna o objeto JSON usado no grafo de conexões
+	'''
 	grafo = grafoController.getGrafo()
 	return jsonify(**grafo)

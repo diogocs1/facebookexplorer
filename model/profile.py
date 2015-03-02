@@ -27,6 +27,7 @@ class Profile(db.Entity):
 	updated_time = orm.Optional(str)
 	picture = orm.Optional(orm.buffer)
 	picture_url = orm.Optional(str)
-
-
-db.generate_mapping(create_tables=True)
+	# chaves estrangeiras Reversas
+	from_posts = orm.Set("Post", reverse="from_")
+	to_posts = orm.Set("Post", reverse="to")
+	with_tags_post = orm.Optional("Post")

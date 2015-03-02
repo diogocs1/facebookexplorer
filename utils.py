@@ -10,3 +10,4 @@ class Utils(object):
 	token = ""
 	# PonyORM Database connection
 	banco = orm.Database("sqlite", "facebook.db", create_db=True)
+	post_cursor = None
