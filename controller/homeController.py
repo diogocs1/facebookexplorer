@@ -24,6 +24,16 @@ def salvaPerfil(json):
 		print "Perfil já cadastrado!"
 
 @orm.db_session
+def obterPerfil(pid):
+	perfil = orm.select(perfil for perfil in Profile if perfil.id == pid)[:][0]
+	return perfil
+
+@orm.db_session
+def obterPerfilPorEmail(email_arg):
+	perfil = orm.select(perfil for perfil in Profile if perfil.email == email_arg)[:]
+	return perfil
+
+@orm.db_session
 def salvaAmigo(json, user_id):
 	'''
 	Salva o amigo na tabela Friend
@@ -38,3 +48,13 @@ def salvaAmigo(json, user_id):
 			orm.commit()
 		except:
 			print "Perfil já cadastrado!"
+
+@orm.db_session
+def setSenha(perfil, senha):
+	perf = orm.select(perf for perf in Profile if perf.id == perfil.id)[:][0]
+	perf.password = senha
+
+@orm.db_session
+def obterAmigos(pid):
+	amigos = orm.select(amigo for amigo in Friend if amigo.user_id == pid)[:]
+	return amigos

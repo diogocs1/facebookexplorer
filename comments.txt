@@ -21,3 +21,39 @@ https://developers.facebook.com/docs/graph-api/reference/v2.2/user/friends
 Uma solução, pegar os amigos "marcáveis":
 
 https://developers.facebook.com/docs/graph-api/reference/v2.2/user/taggable_friends
+
+Estrutura genérica de um Post
+
+[
+u'picture', 
+u'story', 
+u'from', 
+u'name', 
+u'subscribed', 
+u'privacy', 
+u'actions', 
+u'updated_time', 
+u'link', 
+u'object_id', 
+u'story_tags', 
+u'created_time', 
+u'message', 
+u'type', 
+u'id', 
+u'status_type', 
+u'description'
+]
+
+
+Objeto comment
+
+{
+u'from': {u'id': u'845658662172228', 
+		  u'name': u'Rafael Souza'}, 
+u'like_count': 0, 
+u'can_remove': True, 
+u'created_time': u'2015-01-29T16:05:02+0000', 
+u'message': u'Que isso jovem..', 
+u'id': u'1537001103242619_1537041373238592', 
+u'user_likes': False
+}

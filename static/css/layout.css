@@ -61,3 +61,10 @@
 .navbar-nav > li > a {
 	color: #fff !important;
 }
+
+.aviso {
+	padding: 10px 0;
+}
+.aviso-text {
+	border: solid 1px;
+}

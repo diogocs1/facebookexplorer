@@ -11,3 +11,4 @@ class Utils(object):
 	# PonyORM Database connection
 	banco = orm.Database("sqlite", "facebook.db", create_db=True)
 	post_cursor = None
+	pid = ""

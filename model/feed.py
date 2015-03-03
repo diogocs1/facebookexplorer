@@ -15,9 +15,10 @@ class Post(db.Entity):
 	'''
 	id = orm.PrimaryKey(str)
 	actions = orm.Set("Actions")
-	application = orm.Required(str)
+	application = orm.Optional(str)
 	caption = orm.Optional(str)
-	created_time = orm.Required(datetime)
+	created_time = orm.Required(str)
+	comments = orm.Optional(str)
 	description = orm.Optional(str)
 	from_ = orm.Required("Profile")
 	icon = orm.Optional(str)
@@ -30,15 +31,13 @@ class Post(db.Entity):
 	picture = orm.Optional(str)
 	place = orm.Optional(str)
 	privacy = orm.Required("Privacy")
-	properties = orm.Optional("Properties")
+	comments = orm.Set("Comment")
 	shares = orm.Optional(int)
 	source = orm.Optional(str)
 	status_type = orm.Optional(str)
 	story = orm.Optional(str)
-	to = orm.Set("Profile")
 	type_ = orm.Optional(str)
-	updated_time = orm.Optional(datetime)
-	with_tags = orm.Set("Profile")
+	updated_time = orm.Optional(str)
 
 
 class Actions(db.Entity):
@@ -57,26 +56,30 @@ class Tag(db.Entity):
 	'''
 	uid = orm.Required(str)
 	name = orm.Required(str)
-	post = orm.Required("Post")
+	post = orm.Optional("Post")
 
 class Privacy(db.Entity):
 	'''
 	Entidade Privacy
 	Representa o objeto "privacy" que compõe a entidade Post
 	'''
-	description = orm.Required(str)
-	value = orm.Required(str)
-	friends = orm.Required(str)
-	allow = orm.Required(str)
-	deny = orm.Required(str)
+	description = orm.Optional(str)
+	value = orm.Optional(str)
+	friends = orm.Optional(str)
+	allow = orm.Optional(str)
+	deny = orm.Optional(str)
 	post = orm.Optional("Post")
 
-class Properties(db.Entity):
+class Comment(db.Entity):
 	'''
 	Entidade Properties
 	Representa o objeto "properties" que compõe a entidade Post
 	'''
-	name = orm.Required(str)
-	text = orm.Optional(str)
-	href = orm.Optional(str)
+	id = orm.PrimaryKey(str)
+	from_name = orm.Optional(str)
+	like_count = orm.Optional(int)
+	can_remove = orm.Optional(bool)
+	created_time = orm.Optional(str)
+	message = orm.Optional(str)
+	user_likes = orm.Optional(bool)
 	post = orm.Optional("Post")

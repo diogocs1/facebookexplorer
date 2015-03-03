@@ -3,7 +3,29 @@
 {% block body %}
 
 <div class="container login-container">
-	<a href="{{url}}" id="login" class="btn btn-default">Clique ou toque para entrar</a>
+	{% if set_senha %}
+	<div class="aviso">
+		<ul class="aviso-text">
+			<li>
+				<p class="text-info">
+					Digite uma senha para acesso ao banco de dados local
+				</p>
+			</li>
+		</ul>
+	</div>
+	{% endif %}
+	<form method="post">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Email</label>
+			<input name="email" type="email" class="form-control" id="email" placeholder="Digitar Email">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Senha</label>
+			<input name="senha" type="password" class="form-control" id="senha" placeholder="Digitar Senha">
+		</div>
+		<button type="submit" id="login" class="btn btn-default">Clique ou toque para entrar</button>
+	</form>
+	
 	<div id="fb-root" class="fb-root">
 		
 	</div>

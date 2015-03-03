@@ -14,14 +14,14 @@ class Profile(db.Entity):
 	Exemplo: /me
 	'''
 	id = orm.PrimaryKey(str)
-	is_user = orm.Required(bool)
 	first_name = orm.Optional(str)
 	last_name = orm.Optional(str)
+	password = orm.Optional(str)
 	verified = orm.Optional(bool)
 	name = orm.Optional(str, unique=True)
 	locale = orm.Optional(str)
 	gender = orm.Optional(str)
-	email = orm.Optional(str)
+	email = orm.Required(str)
 	link = orm.Optional(str)
 	timezone = orm.Optional(int)
 	updated_time = orm.Optional(str)
@@ -29,8 +29,6 @@ class Profile(db.Entity):
 	picture_url = orm.Optional(str)
 	# chaves estrangeiras Reversas
 	from_posts = orm.Set("Post", reverse="from_")
-	to_posts = orm.Set("Post", reverse="to")
-	with_tags_post = orm.Optional("Post")
 
 class Friend(db.Entity):
 	'''

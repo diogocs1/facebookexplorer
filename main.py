@@ -16,7 +16,7 @@ def startApp():
 	Inicia a visualização web embutida
 	'''
 	time.sleep(1)
-	webview.create_window("Facebook Explorer", "http://localhost:5000", width=1000, height=600)
+	webview.create_window("Facebook Explorer", "http://localhost:5000/login", width=1000, height=600)
 
 def startServer():
 	'''

@@ -14,7 +14,7 @@ def getGrafo(uid):
 			amigo for amigo in Friend if amigo.user_id == uid
 		)[:]
 	usuario = orm.select(
-			perfil for perfil in Profile if perfil.is_user == True
+			perfil for perfil in Profile if perfil.id == uid
 		)[:]
 	# cria a estrutura do grafo JSON
 	grafo = {"g":
@@ -54,5 +54,4 @@ def getGrafo(uid):
 			})
 		cont += 1
 		rotacao += div
-	print cont
 	return grafo["g"]
