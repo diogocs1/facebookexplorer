@@ -17,14 +17,19 @@ app = Flask(__name__)
 @app.route("/refresh_facebook_data", methods=["GET", "POST"])
 def refresh():
 	if not Utils.api:
-		url = facebook.auth_url("573216906148994", "http://localhost:5000/token", perms=["user_friends", "email", "read_stream"])
+		url = facebook.auth_url("573216906148994", "http://localhost:5000/token", perms=["user_friends", "email", "read_stream", "read_mailbox"])
 		return redirect(url)
 	# Recuperando os objetos
 	perfil_publico =  Utils.api.get_object("me")
 	perfil_publico["picture"] = Utils.api.get_object("me/picture")["data"]
 	amigos = Utils.api.get_connections("me", "taggable_friends")
 	feed = Utils.api.get_object("me/feed")
+
+	conversations = Utils.api.get_object("me?fields=conversations")
+	
 	posts = feed["data"]
+	print conversations["conversations"]["data"][0]
+		
 	# Grava no banco
 	homeController.salvaAmigo(amigos["data"], perfil_publico["id"])
 	homeController.salvaPerfil(perfil_publico)
@@ -92,7 +97,9 @@ def feed():
 	Armazena e retorna suas atualizações recentes
 	'''
 	usuario = feedController.obtemPerfilUsuario(Utils.pid)
-	return render_template("feed.html", perfil_publico=usuario)
+	posts = feedController.obterPosts(Utils.pid)
+	print posts
+	return render_template("feed.html", perfil_publico=usuario, posts=posts, len_posts=len(posts))
 
 
 @app.route("/home/load")

@@ -34,7 +34,7 @@ def getGrafo(uid):
 	# Carrega os amigos na estrutura
 	cont = 1
 	rotacao = 1
-	div = 360 / len(amigos)
+	div = 1440 / len(amigos)
 	for amigo in amigos:
 		sub = randint(0,100) / 100.0
 		# adicionando o nó

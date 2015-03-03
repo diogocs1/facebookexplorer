@@ -39,12 +39,13 @@ def salvaAmigo(json, user_id):
 	Salva o amigo na tabela Friend
 	'''
 	for amigo in json:
-		Friend(
-				user_id=user_id,
-				friend_name = amigo["name"],
-				friend_picture = amigo["picture"]["data"]["url"]
-			)
 		try:
+			Friend(
+					user_id=user_id,
+					friend_name = amigo["name"],
+					friend_picture = amigo["picture"]["data"]["url"]
+				)
+		
 			orm.commit()
 		except:
 			print "Perfil já cadastrado!"

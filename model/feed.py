@@ -18,7 +18,6 @@ class Post(db.Entity):
 	application = orm.Optional(str)
 	caption = orm.Optional(str)
 	created_time = orm.Required(str)
-	comments = orm.Optional(str)
 	description = orm.Optional(str)
 	from_ = orm.Required("Profile")
 	icon = orm.Optional(str)

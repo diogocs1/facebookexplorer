@@ -26,13 +26,14 @@ def salvaPosts(posts):
 		# Salvando as actions
 		actions_list = []
 		# Gerando a lista de atributos dinamicamente
-		for action in post["actions"]:
-			actions = "actions = Actions("
-			for chave in action:
-				actions += "%s = action['%s'], " % (chave, chave)
-			actions += ")"
-			exec actions
-			actions_list.append(actions)
+		if post.has_key("actions"):
+			for action in post["actions"]:
+				actions = "actions = Actions("
+				for chave in action:
+					actions += "%s = action['%s'], " % (chave, chave)
+				actions += ")"
+				exec actions
+				actions_list.append(actions)
 		# Criando a relação "from_"
 		from_ = obterPerfilObj(post["from"]["id"])
 		# Criando a relação "message_tags"
@@ -57,16 +58,19 @@ def salvaPosts(posts):
 		comments = []
 		if post.has_key("comments"):
 			for comm in post["comments"]["data"]:
-				comment = Comment(
-							id = comm["id"],
-							from_name = comm["from"]["name"],
-							like_count = comm["like_count"],
-							can_remove = comm["can_remove"],
-							created_time = comm["created_time"],
-							message = comm["message"],
-							user_likes = comm["user_likes"]
-					)
-				comments.append(comment)
+				try:
+					comment = Comment(
+								id = comm["id"],
+								from_name = comm["from"]["name"],
+								like_count = comm["like_count"],
+								can_remove = comm["can_remove"],
+								created_time = comm["created_time"],
+								message = comm["message"],
+								user_likes = comm["user_likes"]
+						)
+					comments.append(comment)
+				except:
+					pass
 		# definindo o atributos opcionais
 		application = ""
 		caption = ""
@@ -119,34 +123,34 @@ def salvaPosts(posts):
 			type_ = post["type"]
 		if post.has_key("updated_time"):
 			updated_time = post["updated_time"]
-		# Criando o objeto Post
-		Post(
-			id = post["id"],
-			actions = actions_list,
-			application = application,
-			caption = caption,
-			created_time = post["created_time"],
-			description = description,
-			from_ = from_,
-			icon = icon,
-			is_hidden = is_hidden,
-			link = link,
-			message = message,
-			message_tags = tags,
-			name = name,
-			object_id = object_id,
-			picture = picture,
-			place = place,
-			privacy = privacy,
-			comments = comments,
-			shares = shares,
-			source = source,
-			status_type = status_type,
-			story = story,
-			type_ = type_,
-			updated_time = updated_time
-		)
 		try:
+			# Criando o objeto Post
+			Post(
+				id = post["id"],
+				actions = actions_list,
+				application = application,
+				caption = caption,
+				created_time = post["created_time"],
+				description = description,
+				from_ = from_,
+				icon = icon,
+				is_hidden = is_hidden,
+				link = link,
+				message = message,
+				message_tags = tags,
+				name = name,
+				object_id = object_id,
+				picture = picture,
+				place = place,
+				privacy = privacy,
+				comments = comments,
+				shares = shares,
+				source = source,
+				status_type = status_type,
+				story = story,
+				type_ = type_,
+				updated_time = updated_time
+			)
 			orm.commit()
 		except:
 			print "Post já cadastrado!"
