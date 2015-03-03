@@ -44,12 +44,8 @@ def home():
 
 	# Salva os amigos
 	amigos = Utils.api.get_connections("me", "taggable_friends")
-	for amigo in amigos["data"]:
-		amigo["is_user"] = False
-		amigo["picture_url"] = amigo["picture"]["data"]["url"]
-		del amigo["picture"]
-		# Grava no banco
-		homeController.salvaPerfil(amigo)
+	# Grava no banco
+	homeController.salvaAmigo(amigos["data"], perfil_publico["id"])
 
 	# Grava no banco
 	homeController.salvaPerfil(perfil_publico)
@@ -91,9 +87,6 @@ def getImage(pid):
 	Mapeia imagens do banco como links
 	'''
 	image = imgController.getImg(pid)
-	print 
-	print pid
-	print
 	response = make_response(image)
 	response.headers['Content-Type'] = 'image/jpeg'
 	response.headers['Content-Disposition'] = 'attachment; filename=img.jpg'
@@ -105,5 +98,6 @@ def grafoJson():
 	GET  /grafo.json
 	Retorna o objeto JSON usado no grafo de conexões
 	'''
-	grafo = grafoController.getGrafo()
+	user = Utils.api.get_object("me")
+	grafo = grafoController.getGrafo(user["id"])
 	return jsonify(**grafo)

@@ -1,6 +1,6 @@
 # encoding: UTF-8
 # Meus arquivos
-from model.profile import Profile
+from model.profile import Profile, Friend
 # Frameworks
 import pony.orm as orm
 # Bibliotecas padrão
@@ -8,10 +8,10 @@ from math import sin, cos
 from random import randint
 
 @orm.db_session
-def getGrafo():
+def getGrafo(uid):
 	# recupera os amigos
 	amigos = orm.select(
-			perfil for perfil in Profile if perfil.is_user == False
+			amigo for amigo in Friend if amigo.user_id == uid
 		)[:]
 	usuario = orm.select(
 			perfil for perfil in Profile if perfil.is_user == True
@@ -40,7 +40,7 @@ def getGrafo():
 		# adicionando o nó
 		grafo["g"]["nodes"].append({
 				"id" : "n" + str(cont),
-				"label" : amigo.name,
+				"label" : amigo.friend_name,
 				"x" : sin(rotacao) - sub,
 				"y" : cos(rotacao) - sub,
 				"size" : 2,

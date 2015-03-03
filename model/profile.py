@@ -31,3 +31,12 @@ class Profile(db.Entity):
 	from_posts = orm.Set("Post", reverse="from_")
 	to_posts = orm.Set("Post", reverse="to")
 	with_tags_post = orm.Optional("Post")
+
+class Friend(db.Entity):
+	'''
+	Entidade Relação Friend
+	Representa a autorelação entre os perfis de usuário
+	'''
+	user_id = orm.Required(str)
+	friend_name = orm.PrimaryKey(str)
+	friend_picture = orm.Required(str)

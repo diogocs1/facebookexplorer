@@ -55,7 +55,7 @@ class Tag(db.Entity):
 	Entidade Tag
 	Representa o objeto "message_tags" que compõe a entidade Post
 	'''
-	id = orm.PrimaryKey(str)
+	uid = orm.Required(str)
 	name = orm.Required(str)
 	post = orm.Required("Post")
 

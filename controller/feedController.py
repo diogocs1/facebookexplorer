@@ -35,10 +35,13 @@ def salvaPosts(posts):
 			exec actions
 			actions_list.append(actions)
 		# Criando a relação "from_"
-		# Gerando a lista de atributos dinamicamente
 		from_ = obterPerfilObj(post["from"]["id"])
 		# Criando a relação "message_tags"
-		print post["message_tags"]
+		if post.has_key("message_tags"):
+			print post["message_tags"]
+		else:
+			print post.keys()
+
 
 @orm.db_session
 def obterPerfilObj(pid):
