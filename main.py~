@@ -23,9 +23,9 @@ def startServer():
 	Inicia o servidor web e chama createdb() para criar o banco de dados
 	'''
 	# remover debug em versão final
-	app.run()
+	app.run(debug=True)
 
 
 if __name__ == "__main__":
-	thread.start_new_thread(startServer, ())
-	startApp()
+	thread.start_new_thread(startApp, ())
+	startServer()
