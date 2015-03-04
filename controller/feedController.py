@@ -158,6 +158,8 @@ def salvaPosts(posts):
 @orm.db_session
 def obterPosts(pid):
 	posts = orm.select(post for post in Post if post.from_.id == pid)[:]
+	for post in posts:
+		post.comments = post.comments.copy()
 	return posts
 
 @orm.db_session

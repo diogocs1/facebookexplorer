@@ -15,6 +15,11 @@
 	<li class="active"><a href="#">Atividade recente</a></li>
 </ul>
 
+<button data-toggle="modal" data-target="#post" id="postar" class="navbar-right btn btn-default">Postar nova mesnagem</button>
+
+<form action="/refresh_facebook_data" method="post">
+	<button id="atualizar" type="submit" class="navbar-right btn btn-default">Atualizar dados</button>
+</form>
 
 {% endblock %}
 
@@ -34,25 +39,34 @@
 
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner" role="listbox">
-	    <div class="item active">
-	      {% if posts[0].picture %}
-	      <img src="{{posts[0].picture}}" alt="">
+	  {% for post in posts %}
+	  	{% if post == posts[0] %}
+	    	<div class="item active">
+	    {% else %}
+			<div class="item">
+	    {% endif %}
+	      {% if post.picture %}
+	      <img class="img-slide" src="{{post.picture}}" alt="">
+	      {% elif post.message %}
+	      	<div id="message">
+	        	{{post.message}}
+	        </div>
 	      {% endif %}
-	      {% if posts[0].description %}
+	      {% if post.description %}
 	      <div class="carousel-caption">
-	      	<div id="description">
-	        	{{posts[0].description}}
+	      	<div class="description">
+	        	{{post.description}}
+	        </div>
+	      </div>
+	      {% elif post.caption %}
+	      <div class="carousel-caption">
+	      	<div class="description">
+	        	{{posts.caption}}
 	        </div>
 	      </div>
 	      {% endif %}
 	    </div>
-	    <div class="item">
-	      <img src="..." alt="...">
-	      <div class="carousel-caption">
-	        ...
-	      </div>
-	    </div>
-	    ...
+	    {% endfor %}
 	  </div>
 
 	  <!-- Controls -->
@@ -65,5 +79,31 @@
 	    <span class="sr-only">Avançar</span>
 	  </a>
 	</div>
+
+	<!-- Modal postar -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="post" tabindex="-1" role="dialog" aria-labelledby="postLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="postLabel">Nova postagem</h4>
+	      </div>
+	      <form method="post" action="/postar">
+		      <div class="modal-body">
+		        	<textarea rows="7" name="post" cols="50" placeholder="Digite a nova postagem e clique em Enviar" ></textarea>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-primary">Enviar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	{% if enviado %}
+
+	{% endif %}
 </div>
 {% endblock %}

@@ -29,6 +29,7 @@ class Profile(db.Entity):
 	picture_url = orm.Optional(str)
 	# chaves estrangeiras Reversas
 	from_posts = orm.Set("Post", reverse="from_")
+	
 
 class Friend(db.Entity):
 	'''

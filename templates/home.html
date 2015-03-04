@@ -15,6 +15,10 @@
 	<li class=""><a href="{{url_for('feed')}}">Atividade recente</a></li>
 </ul>
 
+<form action="/refresh_facebook_data" method="post">
+	<button id="atualizar" type="submit" class="navbar-right btn btn-default">Atualizar dados</button>
+</form>
+
 {% endblock %}
 
 {% block body %}

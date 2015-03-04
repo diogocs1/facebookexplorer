@@ -17,18 +17,18 @@ app = Flask(__name__)
 @app.route("/refresh_facebook_data", methods=["GET", "POST"])
 def refresh():
 	if not Utils.api:
-		url = facebook.auth_url("573216906148994", "http://localhost:5000/token", perms=["user_friends", "email", "read_stream", "read_mailbox"])
+		url = facebook.auth_url("573216906148994", "http://localhost:5000/token", perms=["user_friends", "email", "read_stream", "read_mailbox", "user_status", "publish_actions"])
 		return redirect(url)
 	# Recuperando os objetos
 	perfil_publico =  Utils.api.get_object("me")
 	perfil_publico["picture"] = Utils.api.get_object("me/picture")["data"]
 	amigos = Utils.api.get_connections("me", "taggable_friends")
-	feed = Utils.api.get_object("me/feed")
+	feed = Utils.api.get_object("me/posts")
 
 	conversations = Utils.api.get_object("me?fields=conversations")
 	
 	posts = feed["data"]
-	print conversations["conversations"]["data"][0]
+	# print conversations["conversations"]["data"][0]
 		
 	# Grava no banco
 	homeController.salvaAmigo(amigos["data"], perfil_publico["id"])
@@ -48,7 +48,8 @@ def token():
 	if not Utils.token:
 		Utils.token = facebook.get_access_token_from_code(code, "http://localhost:5000/token", "573216906148994", "1e7c79732df000c0bb045327e1da5379")
 		Utils.api = facebook.GraphAPI(Utils.token["access_token"])
-	return redirect(url_for("refresh"))
+		print Utils.token
+	return redirect(url_for("homeLoad"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -98,9 +99,17 @@ def feed():
 	'''
 	usuario = feedController.obtemPerfilUsuario(Utils.pid)
 	posts = feedController.obterPosts(Utils.pid)
-	print posts
+	for p in posts:
+		print p.comments
 	return render_template("feed.html", perfil_publico=usuario, posts=posts, len_posts=len(posts))
 
+@app.route("/postar", methods=["POST"])
+def postar():
+	print request.form["post"]
+	if Utils.api:
+		post = request.form["post"]
+		Utils.api.put_object("me", "feed", message=post)
+	return redirect(url_for("refresh"))
 
 @app.route("/home/load")
 def homeLoad():

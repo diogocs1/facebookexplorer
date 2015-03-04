@@ -68,3 +68,30 @@
 .aviso-text {
 	border: solid 1px;
 }
+
+#postar,
+#atualizar {
+	margin-top: 8px;
+	margin-right: 2px;
+}
+
+.item {
+	height: 450px !important;
+}
+
+#message {
+	width: 70%;
+	margin: auto;
+	font-size: 15pt;
+	height: 50%;
+	padding-top: 200px;
+}
+
+.img-slide {
+	height: 50% !important;
+	margin: auto;
+}
+
+.description {
+	color: #000;
+}

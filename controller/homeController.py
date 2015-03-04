@@ -14,8 +14,9 @@ def salvaPerfil(json):
 	perfil = "perfil = Profile("
 
 	for chave in json:
-		perfil += "%s = json['%s']," % (chave, chave)
-
+		# Verifica se o atributo existe no banco de dados local,cas
+		if chave in ["id", "first_name", "last_name", "password", "verified", "name", "locale", "gender", "email", "link", "timezone", "updated_time","picture", "picture_url"]:
+			perfil += "%s = json['%s']," % (chave, chave)
 	perfil += ")"
 	exec perfil
 	try:
